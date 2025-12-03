@@ -132,9 +132,6 @@ INSERT INTO `bg_sales_game` VALUES (10834,'Ghostbusters: The Video Game (DS Vers
 /*!40000 ALTER TABLE `bg_sales_game` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `bg_sales_record`
---
 
 DROP TABLE IF EXISTS `bg_sales_record`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;

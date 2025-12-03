@@ -74,7 +74,7 @@ def print_table(rows, max_width=40):
         print(" | ".join(line_parts))
 
 
-# FEATURES / QUERIES
+# Features
 
 def list_top_global_sales(limit=10):
     """
@@ -106,7 +106,7 @@ def search_game_by_name():
         print("Search term cannot be empty.")
         return
 
-    # Join on title/name using LIKE
+    # Join on title 
     query = """
         SELECT
             s.name,

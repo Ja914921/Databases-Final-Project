@@ -1,6 +1,6 @@
 import pandas as pd
 
-# Input files you already have
+
 ESRB_IN  = "Video_games_esrb_rating.csv"
 META_IN  = "Games.csv"
 SALES_IN = "video_games_sales.csv"
@@ -13,7 +13,7 @@ def pick_col(df, options):
             return lower[opt.lower()]
     return None
 
-# ---------- ESRB -> bg_esrb_game ----------
+
 esrb = pd.read_csv(ESRB_IN)
 
 title_c = pick_col(esrb, ["title", "name", "game", "game_title"])
@@ -33,7 +33,7 @@ out_esrb = pd.DataFrame({
 })
 out_esrb.to_csv("bg_esrb_game.csv", index=False)
 
-# ---------- META (general games) -> bg_meta_game ----------
+
 meta = pd.read_csv(META_IN)
 
 title_c = pick_col(meta, ["title", "name", "game", "game_title"])
@@ -59,7 +59,7 @@ out_meta = pd.DataFrame({
 })
 out_meta.to_csv("bg_meta_game.csv", index=False)
 
-# ---------- SALES -> bg_sales_game + bg_sales_record ----------
+
 sales = pd.read_csv(SALES_IN)
 
 title_c = pick_col(sales, ["name", "title", "game", "game_title"])
@@ -69,13 +69,13 @@ pub_c   = pick_col(sales, ["publisher"])
 dev_c   = pick_col(sales, ["developer"])
 year_c  = pick_col(sales, ["year", "release_year"])
 
-# Region columns often vary. We'll look for common ones.
+
 region_cols = [c for c in sales.columns if c.lower() in {
     "na_sales","eu_sales","jp_sales","other_sales","global_sales",
     "north_america","europe","japan","other","global"
 }]
 
-# Build games table
+
 out_sales_game = pd.DataFrame({
     "sales_game_id": range(1, len(sales) + 1),
     "title": sales[title_c] if title_c else None,
@@ -88,7 +88,7 @@ out_sales_game = pd.DataFrame({
 })
 out_sales_game.to_csv("bg_sales_game.csv", index=False)
 
-# Build records table: one row per (game, region)
+
 records = []
 sales_id = 1
 for i in range(len(sales)):
@@ -97,7 +97,7 @@ for i in range(len(sales)):
         val = sales.at[i, col]
         if pd.isna(val):
             continue
-        # keep zeros too? (usually yes; change if you want)
+      
         records.append([sales_id, game_id, col, float(val), "kaggle:ulrikthygepedersen/video-games-sales"])
         sales_id += 1
 
